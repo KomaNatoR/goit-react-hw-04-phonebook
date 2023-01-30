@@ -17,18 +17,26 @@ const FormikForm = ({hendleSubmit}) => {
 
     return (
         <Formik onSubmit={onSubmit} initialValues={initialValues}>
-            <Form>
-                <div>
-                    <label>Name</label>
-                    <Field type="text" name="name" required></Field>
-                </div>
-
-                <div>
-                    <label>Number</label>
-                    <Field type="tel" name="number" required></Field>
-                </div>
-
-                <button type="submit">Add</button>
+            <Form >
+                <label >Name
+                    <Field 
+                        type="text"
+                        name="name"
+                        placeholder="FormikForm"
+                        required
+                    />
+                    {/* <ErrorMessage name="name" component="div" /> */}
+                </label>
+                <label>Number
+                    <Field 
+                        type="tel"
+                        name="number"
+                        placeholder="FormikForm"
+                        required
+                    />
+                    {/* <ErrorMessage name="number" component="div" /> */}
+                </label>
+                <button type="submit">Add contact</button>
             </Form>
         </Formik>
     );

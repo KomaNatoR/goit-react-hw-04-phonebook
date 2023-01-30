@@ -1,10 +1,10 @@
 
 
-const Filter = () => {
+const Filter = ({onFilterChange}) => {
     return (
         <div>
             <label>Find contacts by name</label>
-            <input type="text" />
+            <input onChange={onFilterChange} type="text" />
         </div>
     );
 };

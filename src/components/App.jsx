@@ -3,6 +3,7 @@ import { useState } from "react";
 import FormikForm from "./Form";
 import Filter from "./Filter";
 import ContactList from "./ContactList";
+import { MainDiv } from "./app.styled";
 
 const template = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
@@ -13,20 +14,36 @@ const template = [
 
 export const App = () => {
   const [contacts, setContacts] = useState(template);
-  // const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState('');
 
-  const hendleSubmit = (contact) => {
+  const addContact = (contact) => {
+    const personNormalize = contact.name.toLowerCase().trim();
+    const contactsMap = contacts.find(cont => cont.name.toLowerCase() === personNormalize);
+
+    if (contactsMap) return alert("Це хіба можна так робити?");
     setContacts([contact,...contacts]);
   };
+  const deleteContact = (id) => {
+    const deleteCont = contacts.filter(cont => cont.id !== id);
+    setContacts(deleteCont);
+  };
+  const onFilterChange = (e) => {
+    const { value } = e.target;
+    // console.dir(filter);
+
+    setFilter(value);
+  };
+  const normalizeFilter = filter.toLowerCase().trim();
+  const visiblePersons = contacts.filter(cont=>cont.name.toLowerCase().includes(normalizeFilter));
 
   return (
-    <div>
+    <MainDiv>
       <h1>Phonebook</h1>
-      <FormikForm hendleSubmit={hendleSubmit} />
+      <FormikForm hendleSubmit={addContact} />
       
       <h2>Contacts</h2>
-      <Filter/>
-      <ContactList contacts={contacts} />
-    </div>
+      <Filter onFilterChange={onFilterChange} />
+      <ContactList onClick={deleteContact} contacts={visiblePersons} />
+    </MainDiv>
   );
 };
