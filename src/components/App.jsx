@@ -13,7 +13,7 @@ const template = [
 
 export const App = () => {
   const [contacts, setContacts] = useState(template);
-  const [filter, setFilter] = useState('');
+  // const [filter, setFilter] = useState('');
 
   const hendleSubmit = (contact) => {
     setContacts([contact,...contacts]);
