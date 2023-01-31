@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import FormikForm from "./Form";
 import Filter from "./Filter";
@@ -13,29 +13,36 @@ const template = [
 ];
 
 export const App = () => {
-  const [contacts, setContacts] = useState(template);
+  const [contacts, setContacts] = useState(()=>
+    JSON.parse(window.localStorage.getItem('contacts')) ?? template
+  );
   const [filter, setFilter] = useState('');
 
+  useEffect(() => {
+    window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  },[contacts])
+// ---------------------------------------------------------||   ФУНКЦІЇ ОБРОБКИ   ||
   const addContact = (contact) => {
     const personNormalize = contact.name.toLowerCase().trim();
     const contactsMap = contacts.find(cont => cont.name.toLowerCase() === personNormalize);
 
     if (contactsMap) return alert("Це хіба можна так робити?");
-    setContacts([contact,...contacts]);
+    setContacts(prevConts=>[contact,...prevConts]);
   };
   const deleteContact = (id) => {
-    const deleteCont = contacts.filter(cont => cont.id !== id);
-    setContacts(deleteCont);
+    // const deleteCont = contacts.filter(cont => cont.id !== id);
+    // setContacts(deleteCont);
+    setContacts(prevCont=>prevCont.filter(cont => cont.id !== id));
   };
   const onFilterChange = (e) => {
     const { value } = e.target;
-    // console.dir(filter);
 
     setFilter(value);
   };
   const normalizeFilter = filter.toLowerCase().trim();
   const visiblePersons = contacts.filter(cont=>cont.name.toLowerCase().includes(normalizeFilter));
 
+  // ---------------------------------------------------------||   РЕНДЕР   ||
   return (
     <MainDiv>
       <h1>Phonebook</h1>
