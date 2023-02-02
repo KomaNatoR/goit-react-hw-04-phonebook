@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { Formik, Field, Form } from 'formik';
 import { nanoid } from 'nanoid';
 
@@ -40,6 +42,9 @@ const FormikForm = ({hendleSubmit}) => {
             </Form>
         </Formik>
     );
+};
+FormikForm.propTypes = {
+    hendleSubmit:PropTypes.func.isRequired,
 };
 
 export default FormikForm;

@@ -49,7 +49,7 @@ export const App = () => {
       <FormikForm hendleSubmit={addContact} />
       
       <h2>Contacts</h2>
-      <Filter onFilterChange={onFilterChange} />
+      <Filter onFilterChange={onFilterChange} value={filter} />
       <ContactList onClick={deleteContact} contacts={visiblePersons} />
     </MainDiv>
   );
